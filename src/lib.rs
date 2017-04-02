@@ -7,6 +7,7 @@ use num_complex::Complex64;
 use std::ops::*;
 
 #[allow(non_camel_case_types)]
+#[repr(C)]
 #[derive(Clone, Debug, Copy)]
 pub struct c64([f64; 2]);
 
