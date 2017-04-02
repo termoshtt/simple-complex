@@ -40,6 +40,9 @@ impl c64 {
     pub fn abs(&self) -> f64 {
         (self.re() * self.re() + self.im() * self.im()).sqrt()
     }
+    pub fn conj(&self) -> Self {
+        c64([self[0], -self[1]])
+    }
 }
 
 impl Add for c64 {
@@ -80,8 +83,7 @@ impl Neg for c64 {
 impl Mul for c64 {
     type Output = c64;
     fn mul(self, other: Self) -> Self {
-        c64([self.re() * other.re() - self.im() * other.im(),
-             self.re() * other.im() + self.im() * other.re()])
+        c64([self.re() * other.re() - self.im() * other.im(), self.re() * other.im() + self.im() * other.re()])
     }
 }
 
@@ -123,6 +125,13 @@ impl Mul<f64> for c64 {
     type Output = c64;
     fn mul(self, other: f64) -> Self {
         c64([self.re() * other, self.im() * other])
+    }
+}
+
+impl Mul<c64> for f64 {
+    type Output = c64;
+    fn mul(self, other: c64) -> c64 {
+        c64([other.re() * self, other.im() * self])
     }
 }
 
