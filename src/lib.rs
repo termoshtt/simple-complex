@@ -1,12 +1,26 @@
 
 extern crate num_traits;
+extern crate num_complex;
 
 use num_traits::{One, Zero};
+use num_complex::Complex64;
 use std::ops::*;
 
 #[allow(non_camel_case_types)]
 #[derive(Clone, Debug, Copy)]
 pub struct c64([f64; 2]);
+
+impl Into<Complex64> for c64 {
+    fn into(self) -> Complex64 {
+        Complex64::new(self[0], self[1])
+    }
+}
+
+impl From<Complex64> for c64 {
+    fn from(c: Complex64) -> Self {
+        c64::new(c.re, c.im)
+    }
+}
 
 impl Deref for c64 {
     type Target = [f64; 2];
@@ -42,6 +56,11 @@ impl c64 {
     }
     pub fn conj(&self) -> Self {
         c64([self[0], -self[1]])
+    }
+    pub fn exp(self) -> Self {
+        // FIXME: calculate directly
+        let c: Complex64 = self.into();
+        c.exp().into()
     }
 }
 

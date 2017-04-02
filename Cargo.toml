@@ -5,3 +5,4 @@ authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
 
 [dependencies]
 num-traits = "0.1"
+num-complex = "0.1"
